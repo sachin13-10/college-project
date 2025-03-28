@@ -1,0 +1,184 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SG Study Hub</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,600,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5225142257290868"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+    <section class="sub-header">
+        <nav>
+            <a href="index.html"><img src="images/logo.png"></a>
+            <div class="nav-links" id="navLinks">  
+                <i class="fa fa-close" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="index.html">HOME</a></li>
+                    <li><a href="code.html">OOP OUTPUTS</a></li>
+                    <li><a href="dbmsop.html">DBMS OUTPUT</a></li>
+                    <li><a href="practical.html">PRACTICALS</a></li>
+                    <li><a href="about.html">ABOUT</a></li>
+                    <li><a href="contact.html">CONTACT</a></li>
+                    <li><a href="micro.html">PDF TOOL</a></li>
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+            <h1>dbms practical 1</h1>
+    </section>
+        
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Generator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <h2>Enter Student Data</h2>
+    <button onclick="addStudentRow()">Add Student</button>
+    <table id="studentsTable" border="1">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Date of Birth</th>
+            <th>Email</th>
+        </tr>
+    </table>
+
+    <h2>Enter Course Data</h2>
+    <button onclick="addCourseRow()">Add Course</button>
+    <table id="coursesTable" border="1">
+        <tr>
+            <th>Course Name</th>
+            <th>Credits</th>
+        </tr>
+    </table>
+    
+    <button onclick="generateSQL()">Generate SQL & PDF</button>
+    <pre id="sqlOutput"></pre>
+    
+    <script>
+        function addStudentRow() {
+            let table = document.getElementById('studentsTable');
+            let row = table.insertRow();
+            row.innerHTML = `<td><input type='text'></td><td><input type='text'></td><td><input type='date'></td><td><input type='email'></td>`;
+        }
+
+        function addCourseRow() {
+            let table = document.getElementById('coursesTable');
+            let row = table.insertRow();
+            row.innerHTML = `<td><input type='text'></td><td><input type='number'></td>`;
+        }
+
+        function generateSQL() {
+            let sql = "CREATE DATABASE SitrcDB;\nUSE SitrcDB;\n\n";
+            sql += "CREATE TABLE Students (\n    StudentID INT PRIMARY KEY AUTO_INCREMENT,\n    FirstName VARCHAR(50),\n    LastName VARCHAR(50),\n    DateOfBirth DATE,\n    Email VARCHAR(100)\n);\n\n";
+            sql += "CREATE TABLE Courses (\n    CourseID INT PRIMARY KEY AUTO_INCREMENT,\n    CourseName VARCHAR(100),\n    Credits INT\n);\n\n";
+            
+            sql += "INSERT INTO Students (FirstName, LastName, DateOfBirth, Email) VALUES \n";
+            let studentRows = document.querySelectorAll('#studentsTable tr:not(:first-child)');
+            let studentValues = [];
+            studentRows.forEach(row => {
+                let cells = row.getElementsByTagName('input');
+                studentValues.push(`('${cells[0].value}', '${cells[1].value}', '${cells[2].value}', '${cells[3].value}')`);
+            });
+            sql += studentValues.join(",\n") + ";\n\n";
+            
+            sql += "INSERT INTO Courses (CourseName, Credits) VALUES \n";
+            let courseRows = document.querySelectorAll('#coursesTable tr:not(:first-child)');
+            let courseValues = [];
+            courseRows.forEach(row => {
+                let cells = row.getElementsByTagName('input');
+                courseValues.push(`('${cells[0].value}', ${cells[1].value})`);
+            });
+            sql += courseValues.join(",\n") + ";\n\n";
+            
+            sql += "SELECT * FROM Students;\nSELECT FirstName, Email FROM Students;\nSELECT * FROM Courses;";
+            
+            document.getElementById("sqlOutput").textContent = sql;
+            generatePDF(sql, studentRows, courseRows);
+        }
+
+        function generatePDF(sql, studentRows, courseRows) {
+            const { jsPDF } = window.jspdf;
+            let doc = new jsPDF();
+            let lines = doc.splitTextToSize(sql, 180);
+            let y = 10;
+            doc.text("Generated SQL Code:", 10, y);
+            y += 10;
+            
+            lines.forEach(line => {
+                if (y > 270) { 
+                    doc.addPage();
+                    y = 10;
+                }
+                doc.text(line, 10, y);
+                y += 7;
+            });
+            
+            doc.addPage();
+            function drawTable(title, headers, rows, startY) {
+                doc.text(title, 10, startY - 5);
+                doc.autoTable({
+                    head: [headers],
+                    body: rows,
+                    startY: startY,
+                    margin: { top: 10 }
+                });
+                return doc.lastAutoTable.finalY;
+            }
+            
+            let studentData = Array.from(studentRows).map(row => 
+                Array.from(row.getElementsByTagName('input')).map(cell => cell.value));
+            let courseData = Array.from(courseRows).map(row => 
+                Array.from(row.getElementsByTagName('input')).map(cell => cell.value));
+            let studentEmailData = Array.from(studentRows).map(row => {
+                let cells = row.getElementsByTagName('input');
+                return [cells[0].value, cells[3].value];
+            });
+            
+            let finalY = drawTable("SELECT * FROM Students", ["First Name", "Last Name", "Date of Birth", "Email"], studentData, 20);
+            finalY = drawTable("SELECT * FROM Courses", ["Course Name", "Credits"], courseData, finalY + 20);
+            if (finalY > 270) doc.addPage();
+            drawTable("SELECT FirstName, Email FROM Students", ["First Name", "Email"], studentEmailData, finalY + 20);
+            
+            doc.save("output.pdf");
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+
+    <section class="footer">
+        <h4>About Us</h4>
+        <p>This is my first website build for fun<br>To get any pdf anywhere and code output without any hassle</p>
+        <div class="icons">
+            <a href=""><i class="fa fa-facebook"></i></a>
+            <a href=""><i class="fa fa-twitter"></i></a>
+            <a href=""><i class="fa fa-instagram"></i></a>
+            <a href=""><i class="fa fa-linkedin"></i></a>
+            
+        </div>
+        <a href="" class="footer-link"><p>made with <i class="fa fa-heart-o"></i> by SG</p></a>
+    </section>    
+    
+    
+    <!----JavaScript for toggle menu---->
+    <script>
+    var navLinks = document.getElementById("navLinks");
+    
+    function showMenu() {
+        navLinks.style.right = "0";
+    }
+    
+    function hideMenu() {
+        navLinks.style.right = "-200px";
+    }
+    </script> 
+    
+    </body>
+    </html>
+</body>
+</html>

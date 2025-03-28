@@ -1,0 +1,185 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SG Study Hub</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,600,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5225142257290868"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+    <section class="sub-header">
+        <nav>
+            <a href="index.html"><img src="images/logo.png"></a>
+            <div class="nav-links" id="navLinks">  
+                <i class="fa fa-close" onclick="hideMenu()"></i>
+                <ul>
+                  <li><a href="index.html">HOME</a></li>
+                    <li><a href="code.html">OOP OUTPUTS</a></li>
+                    <li><a href="dbmsop.html">DBMS OUTPUT</a></li>
+                    <li><a href="practical.html">PRACTICALS</a></li>
+                    <li><a href="about.html">ABOUT</a></li>
+                    <li><a href="contact.html">CONTACT</a></li>
+                    <li><a href="micro.html">PDF TOOL</a></li>
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+            <h1>output pra 1a</h1>
+    </section>
+    
+<!---------- Blog Page Content ---------->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    label {
+      display: inline-block;
+      width: 120px;
+      margin-bottom: 8px;
+    }
+    input {
+      margin-bottom: 8px;
+    }
+    button {
+      margin-top: 12px;
+      padding: 8px 16px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Student PDF Generator</h1>
+  <form id="studentForm">
+    <div>
+      <label for="roll">Roll Number:</label>
+      <input type="number" id="roll" name="roll" placeholder="Enter roll number">
+    </div>
+    <div>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" placeholder="Enter name">
+    </div>
+    <div>
+      <label for="marks">Marks:</label>
+      <input type="number" id="marks" name="marks" placeholder="Enter marks">
+    </div>
+    <button type="button" onclick="generatePDF()">Generate PDF</button>
+  </form>
+  
+  <script>
+    async function generatePDF() {
+      // Retrieve user input values.
+      const roll = document.getElementById("roll").value;
+      const name = document.getElementById("name").value;
+      const marks = document.getElementById("marks").value;
+      
+      // Import jsPDF from the global window.jspdf object.
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      // --- Page 1: Java Code with User Values ---
+      const codeSnippet = `Practical No 1a\n\n` +
+`import java.lang.*;
+class Student {
+    int Roll_no;
+    String name;
+    int marks;
+
+    public void getdata(int r, String n, int m) {
+        Roll_no = r;
+        name = n;
+        marks = m;
+    }
+
+    public void putdata() {
+        System.out.println(">>>>>>>>>>>>>>>>>>> OUTPUT  >>>>>>>>>>>>>>>");
+        System.out.println("Roll Number = " + Roll_no);
+        System.out.println("Name of the student = " + name);
+        System.out.println("Marks of the student = " + marks);
+    }
+
+    public static void main(String args[]) {
+        Student s1 = new Student();
+        // Using user-provided values:
+        s1.getdata(${roll}, "${name}", ${marks});
+        s1.putdata();
+    }
+}`;
+
+      // Use a monospace font for the code.
+      doc.setFont("Courier", "normal");
+      doc.setFontSize(10);
+      const codeLines = doc.splitTextToSize(codeSnippet, 180);
+      doc.text(codeLines, 10, 10);
+      
+      // --- Page 2: Output with a Black Box and White Text ---
+      doc.addPage();
+
+      // Prepare the output text.
+      const outputText = 
+`>>>>>>>>>>>>>>>>>>> OUTPUT  >>>>>>>>>>>>>>> 
+Roll Number = ${roll}
+Name of the student = ${name}
+Marks of the student = ${marks}`;
+
+      // Define box parameters.
+      const marginLeft = 10;
+      const marginTop = 10;
+      const boxWidth = 180;
+      const boxPadding = 5;
+
+      // Set font for output text.
+      doc.setFont("Helvetica", "normal");
+      doc.setFontSize(12);
+      // Change text color to white.
+      doc.setTextColor(255, 255, 255);
+
+      // Split the output text into lines so that it fits inside the box.
+      const outputLines = doc.splitTextToSize(outputText, boxWidth - 2 * boxPadding);
+      // Estimate line height (adjust if needed).
+      const lineHeight = 7;
+      const boxHeight = outputLines.length * lineHeight + 2 * boxPadding;
+
+      // Draw a filled black rectangle.
+      doc.setFillColor(0, 0, 0);
+      doc.rect(marginLeft, marginTop, boxWidth, boxHeight, 'F');
+
+      // Place the white text inside the rectangle.
+      const textX = marginLeft + boxPadding;
+      const textY = marginTop + boxPadding + lineHeight - 2; // slight adjustment for baseline
+      doc.text(outputLines, textX, textY, {lineHeightFactor: 1});
+      
+      // Save the generated PDF.
+      doc.save("Student.pdf");
+    }
+  </script>
+  <section class="footer">
+    <h4>About Us</h4>
+    <p>This is my first website build for fun<br>To get any pdf anywhere and code output without any hassle</p>
+    <div class="icons">
+        <a href=""><i class="fa fa-facebook"></i></a>
+        <a href=""><i class="fa fa-twitter"></i></a>
+        <a href=""><i class="fa fa-instagram"></i></a>
+        <a href=""><i class="fa fa-linkedin"></i></a>
+        
+    </div>
+    <a href="" class="footer-link"><p>made with <i class="fa fa-heart-o"></i> by SG</p></a>
+</section>    
+
+
+<!----JavaScript for toggle menu---->
+<script>
+var navLinks = document.getElementById("navLinks");
+
+function showMenu() {
+    navLinks.style.right = "0";
+}
+
+function hideMenu() {
+    navLinks.style.right = "-200px";
+}
+</script> 
+</body>
+</html>    

@@ -1,0 +1,205 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SG Study Hub</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,600,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5225142257290868"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+    <section class="sub-header">
+        <nav>
+            <a href="index.html"><img src="images/logo.png"></a>
+            <div class="nav-links" id="navLinks">  
+                <i class="fa fa-close" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="index.html">HOME</a></li>
+                    <li><a href="code.html">OOP OUTPUTS</a></li>
+                    <li><a href="dbmsop.html">DBMS OUTPUT</a></li>
+                    <li><a href="practical.html">PRACTICALS</a></li>
+                    <li><a href="about.html">ABOUT</a></li>
+                    <li><a href="contact.html">CONTACT</a></li>
+                    <li><a href="micro.html">PDF TOOL</a></li>
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+            <h1>Output pra 2a</h1>
+    </section>
+    
+<!---------- Blog Page Content ---------->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+    .container {
+        margin-bottom: 20px;
+    }
+    .container input {
+        padding: 5px;
+        margin: 5px;
+        font-size: 14px;
+    }
+    .container button {
+        padding: 10px 15px;
+        font-size: 16px;
+        cursor: pointer;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+    }
+    .container button:hover {
+        background-color: #45a049;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Enter Numbers for Multiplication:</h2>
+    <input type="number" id="num1" placeholder="Enter number 1">
+    <input type="number" id="num2" placeholder="Enter number 2">
+    <input type="number" id="num3" placeholder="Enter number 3 (Optional)">
+    <input type="number" id="num4" placeholder="Enter number 4 (Optional)">
+    <button onclick="generatePDF()">Generate PDF</button>
+</div>
+
+<script>
+    function generatePDF() {
+        const { jsPDF } = window.jspdf;
+
+        // Get user input from the fields
+        const num1 = document.getElementById("num1").value;
+        const num2 = document.getElementById("num2").value;
+        const num3 = document.getElementById("num3").value || null; // Optional, if not provided
+        const num4 = document.getElementById("num4").value || null; // Optional, if not provided
+
+        // Check if at least the first two fields are filled out
+        if (!num1 || !num2) {
+            alert("Please fill out at least the first two fields.");
+            return; // If the first two fields are empty, stop the PDF generation.
+        }
+
+        // Create a new jsPDF instance
+        const doc = new jsPDF();
+        let currentY = 20;
+
+        // Function to add text to the PDF, and handle page breaks if needed
+        function addText(text) {
+            const marginLeft = 20;
+            const pageHeight = doc.internal.pageSize.height;
+            const lineHeight = 10;
+
+            // If the current Y position is near the bottom, add a new page
+            if (currentY + lineHeight > pageHeight - 20) {
+                doc.addPage();
+                currentY = 20; // Reset Y position for new page
+            }
+
+            // Add the text and update Y position
+            doc.text(text, marginLeft, currentY);
+            currentY += lineHeight;
+        }
+
+        // Page 1: Java Code with User Input
+        addText("Practical No 2a");
+        addText(`class Multiply {`);
+        addText(`  int a;`);
+        addText(`  int b;`);
+        addText(`  int c;`);
+        addText(`  int d;`);
+        addText(`  Multiply() {`);
+        addText(`    int a = 2;`);
+        addText(`    int b = 4;`);
+        addText(`    System.out.println("Multiplication of 2 no's = " +(a * b));`);
+        addText(`  }`);
+        addText(`  Multiply(int p, int q) {`);
+        addText(`    a = p;`);
+        addText(`    b = q;`);
+        addText(`    int result = a*b;`);
+        addText(`    System.out.println("Multiplication of 2 no's = " +result);`);
+        addText(`  }`);
+        addText(`  Multiply(int p, int q, int r) {`);
+        addText(`    a = p;`);
+        addText(`    b = q;`);
+        addText(`    c = r;`);
+        addText(`    int result = a*b*c;`);
+        addText(`    System.out.println("Multiplication of 3 no's = " +result);`);
+        addText(`  }`);
+        addText(`  Multiply(int p, int q, int r, int s) {`);
+        addText(`    a = p;`);
+        addText(`    b = q;`);
+        addText(`    c = r;`);
+        addText(`    d = s;`);
+        addText(`    int result = a*b*c*d;`);
+        addText(`    System.out.println("Multiplication of 4 no's = " +result);`);
+        addText(`  }`);
+        addText(`  public static void main(String[] args) {`);
+        addText(`    Multiply m1 = new Multiply();`);
+        addText(`    Multiply m2 = new Multiply(${num1}, ${num2});`);
+        if (num3) addText(`    Multiply m3 = new Multiply(${num1}, ${num2}, ${num3});`);
+        if (num4) addText(`    Multiply m4 = new Multiply(${num1}, ${num2}, ${num3}, ${num4});`);
+        addText(`  }`);
+        addText(`}`);
+        
+        // Add new page for output
+        doc.addPage();
+        currentY = 20; // Reset Y position for new page
+
+        // Page 2: Output with black box and white text
+        doc.setTextColor(255, 255, 255); // Set text color to white
+        doc.setFillColor(0, 0, 0); // Set fill color to black
+        doc.rect(20, 40, 180, 60, 'F'); // Box for output
+
+        // Add the text inside the black box
+        doc.setTextColor(255, 255, 255); // Ensure white text
+        doc.text("<<<<<<<<<<<<<<<<<<<<<Output>>>>>>>>>>>>>>>>>>>>>", 30, 50); // Inside the box
+
+        // Now calculate the multiplication results
+        const result2 = num1 * num2;
+        const result3 = num3 ? num1 * num2 * num3 : null;
+        const result4 = num4 ? num1 * num2 * num3 * num4 : null;
+
+        // Output text inside the black box
+        doc.text(`Multiplication of 2 numbers: ${result2}`, 30, 60);
+        if (result3) doc.text(`Multiplication of 3 numbers: ${result3}`, 30, 70);
+        if (result4) doc.text(`Multiplication of 4 numbers: ${result4}`, 30, 80);
+
+        // Save the PDF
+        doc.save('multiplication_details.pdf');
+    }
+</script>
+<section class="footer">
+    <h4>About Us</h4>
+    <p>This is my first website build for fun<br>To get any pdf anywhere and code output without any hassle</p>
+    <div class="icons">
+        <a href=""><i class="fa fa-facebook"></i></a>
+        <a href=""><i class="fa fa-twitter"></i></a>
+        <a href=""><i class="fa fa-instagram"></i></a>
+        <a href=""><i class="fa fa-linkedin"></i></a>
+        
+    </div>
+    <a href="" class="footer-link"><p>made with <i class="fa fa-heart-o"></i> by SG</p></a>
+</section>    
+
+
+<!----JavaScript for toggle menu---->
+<script>
+var navLinks = document.getElementById("navLinks");
+
+function showMenu() {
+    navLinks.style.right = "0";
+}
+
+function hideMenu() {
+    navLinks.style.right = "-200px";
+}
+</script> 
+
+</body>
+</html>    

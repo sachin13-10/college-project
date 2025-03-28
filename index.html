@@ -1,0 +1,133 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SG Study Hub</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,600,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5225142257290868"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+    <section class="header">
+        
+        <nav>
+            <a href="index.html"><img src="images/logo.png"></a>
+            <div class="nav-links" id="navLinks">  
+                <i class="fa fa-close" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="index.html">HOME</a></li>
+                    <li><a href="code.html">OOP OUTPUTS</a></li>
+                    <li><a href="dbmsop.html">DBMS OUTPUT</a></li>
+                    <li><a href="practical.html">PRACTICALS</a></li>
+                    <li><a href="about.html">ABOUT</a></li>
+                    <li><a href="contact.html">CONTACT</a></li>
+                    <li><a href="micro.html">PDF TOOL</a></li>
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+        
+        <div class="text-box">
+            <h1>Welcome to SG Study Hub</h1>
+            <p>You get all practicals and code output here<br>For free within seconds</p>
+            <a href="contact.html" class="hero-btn">Visit Us to Know More</a>
+        </div>
+    </section>
+    
+<!---------- course ----------->
+    
+    <section class="course">
+        <h1>Things We Offer</h1>
+        <p>You get all subjects practical and assignment on same day</p>
+        <div class="row">
+            <div class="course-col" onclick="location.href='code.html';" style="cursor: pointer;">
+                <h3>codes output</h3>
+                <p>You get pdf with your Attributes. The attribute are change automatically like ask you the attributes you enter you get same attributes in code and output In the form of PDF</p>
+            </div>
+
+            <div class="course-col" onclick="location.href='practical.html';" style="cursor: pointer;">
+                <h3>practicals</h3>
+                <p>The practical pdfs upload on Google Drive you can get access to them through Google Drive just go on links</p>
+            </div>
+        </div>
+    </section>
+    
+
+    <hr>
+
+
+    <section class="facility">
+        <h1>ONLY FOR LEGENDS</h1>
+        <p>MAKE MINI BOOK USE ANY WHERE</p>
+    
+        <div class="course-col" onclick="location.href='micro.html';" style="cursor: pointer;">
+            <h3>MINI BOOK BACK TO BACK</h3>
+            <p>just click Here and upload pdf and just click on download, your pdf file ready now print it back to back</p>
+        </div>
+           
+    </section>
+    <hr>
+<!---------- Facilities ---------->
+    
+    <section class="facility">
+        <h1>Our Facilities</h1>
+        <p>Regular updates </p>
+            <div class="row">
+                <div class="facility-col">
+                    <img src="images/library.png">
+                    <h3>Same day updates</h3>
+                    <p>I try my best to give the same day update for practical and assignments</p>
+                </div>
+                <div class="facility-col">
+                    <img src="images/basketball.png">
+                    <h3>All Pdfs at one place</h3>
+                    <p>You are able to download all PDFS at one place like practicals, practical outputs and assignment also</p>
+                </div>
+            
+            </div>
+    </section>
+    
+    
+
+   
+<!------ Call To Action ------>
+
+<section class="cta">
+    
+       <h1>Enroll For Our Various Online Courses<br>Anywhere From The World</h1>
+        <a href="https://t.me/sgstudyhub" class="hero-btn">CONTACT US</a>
+    
+</section>    
+ 
+<!-------- footer ---------->
+
+<section class="footer">
+        <h4>About Us</h4>
+        <p>This is my first website build for fun<br>To get any pdf anywhere and code output without any hassle</p>
+        <div class="icons">
+            <a href=""><i class="fa fa-facebook"></i></a>
+            <a href=""><i class="fa fa-twitter"></i></a>
+            <a href=""><i class="fa fa-instagram"></i></a>
+            <a href=""><i class="fa fa-linkedin"></i></a>
+            
+        </div>
+        <a href="" class="footer-link"><p>made with <i class="fa fa-heart-o"></i> by SG</p></a>
+</section>    
+  
+  
+<!----JavaScript for toggle menu---->
+<script>
+    var navLinks = document.getElementById("navLinks");
+
+    function showMenu() {
+        navLinks.style.right = "0";
+    }
+
+    function hideMenu() {
+        navLinks.style.right = "-200px";
+    }
+</script> 
+    
+</body>
+</html>

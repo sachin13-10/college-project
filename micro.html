@@ -1,0 +1,150 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SG Study Hub</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,600,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5225142257290868"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <body>
+        <section class="header">
+            
+            <nav>
+                <a href="index.html"><img src="images/logo.png"></a>
+                <div class="nav-links" id="navLinks">  
+                    <i class="fa fa-close" onclick="hideMenu()"></i>
+                    <ul>
+                        <li><a href="index.html">HOME</a></li>
+                    <li><a href="code.html">OOP OUTPUTS</a></li>
+                    <li><a href="dbmsop.html">DBMS OUTPUT</a></li>
+                    <li><a href="practical.html">PRACTICALS</a></li>
+                    <li><a href="about.html">ABOUT</a></li>
+                    <li><a href="contact.html">CONTACT</a></li>
+                    <li><a href="micro.html">PDF TOOL</a></li>
+                    </ul>
+                </div>
+                <i class="fa fa-bars" onclick="showMenu()"></i>
+            </nav>
+
+
+    <h2 style="color: white;">Upload PDF</h2>
+    <h5 style="color: white;">And click on generate to get pdf </h5>
+    
+    <input type="file" id="pdfInput" accept="application/pdf" style="display: none;">
+    <button onclick="document.getElementById('pdfInput').click()" style="background-color: #4CAF50; color: white; padding: 10px 20px; font-size: 18px; cursor: pointer; border: none; border-radius: 4px;">Upload PDF</button>
+    <h2 style="color: white;"></h2>
+    <button onclick="processPDF()" style="background-color: #4CAF50; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer; border: none; border-radius: 4px;">Generate Double-Sided PDF</button>
+</section>
+    <script>
+        async function processPDF() {
+            try {
+                const fileInput = document.getElementById("pdfInput");
+                if (!fileInput.files.length) {
+                    alert("Please upload a PDF file.");
+                    return;
+                }
+                const file = fileInput.files[0];
+                const reader = new FileReader();
+
+                reader.readAsArrayBuffer(file);
+                reader.onload = async function () {
+                    try {
+                        const arrayBuffer = reader.result;
+                        const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+                        const newPdfDoc = await PDFLib.PDFDocument.create();
+                        const pageCount = pdfDoc.getPageCount();
+
+                        console.log(`Original PDF has ${pageCount} pages.`);
+
+                        for (let i = 0; i < pageCount; i += 18) {
+                            const frontPage = newPdfDoc.addPage([595, 842]); // A4 size
+                            const backPage = newPdfDoc.addPage([595, 842]); // A4 size
+                            const { width, height } = frontPage.getSize();
+
+                            for (let j = 0; j < 9; j++) {
+                                const frontIndex = i + j * 2;
+                                const backIndex = i + j * 2 + 1;
+
+                                if (frontIndex < pageCount) {
+                                    const copiedPages = await pdfDoc.copyPages(pdfDoc, [frontIndex]);
+                                    const copiedPage = copiedPages[0];
+                                    const embeddedPage = await newPdfDoc.embedPage(copiedPage);
+
+                                    frontPage.drawPage(embeddedPage, {
+                                        x: (j % 3) * (width / 3),
+                                        y: height - Math.floor(j / 3) * (height / 3) - height / 3,
+                                        width: width / 3,
+                                        height: height / 3
+                                    });
+                                }
+
+                                if (backIndex < pageCount) {
+                                    const copiedPages = await pdfDoc.copyPages(pdfDoc, [backIndex]);
+                                    const copiedPage = copiedPages[0];
+                                    const embeddedPage = await newPdfDoc.embedPage(copiedPage);
+
+                                    // Place in mirrored order for back alignment
+                                    backPage.drawPage(embeddedPage, {
+                                        x: (2 - (j % 3)) * (width / 3),  // Reverse X position
+                                        y: height - Math.floor(j / 3) * (height / 3) - height / 3,
+                                        width: width / 3,
+                                        height: height / 3
+                                    });
+                                }
+                            }
+                        }
+
+                        const pdfBytes = await newPdfDoc.save();
+                        const blob = new Blob([pdfBytes], { type: "application/pdf" });
+                        const link = document.createElement("a");
+                        link.href = URL.createObjectURL(blob);
+                        link.download = "9-in-1-Double-Sided-PDF.pdf";
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        console.log("PDF generated and downloaded successfully.");
+                    } catch (err) {
+                        console.error("Error processing PDF:", err);
+                        alert("Failed to process PDF. Please check the console for details.");
+                    }
+                };
+            } catch (err) {
+                console.error("Error loading file:", err);
+                alert("Failed to load file. Try again.");
+            }
+        }
+    </script>
+
+    <section class="footer">
+        <h4>About Us</h4>
+        <p>This is my first website build for fun<br>To get any pdf anywhere and code output without any hassle</p>
+        <div class="icons">
+            <a href=""><i class="fa fa-facebook"></i></a>
+            <a href=""><i class="fa fa-twitter"></i></a>
+            <a href=""><i class="fa fa-instagram"></i></a>
+            <a href=""><i class="fa fa-linkedin"></i></a>
+            
+        </div>
+        <a href="" class="footer-link"><p>made with <i class="fa fa-heart-o"></i> by SG </p></a>
+</section>    
+  
+  
+<!----JavaScript for toggle menu---->
+<script>
+    var navLinks = document.getElementById("navLinks");
+
+    function showMenu() {
+        navLinks.style.right = "0";
+    }
+
+    function hideMenu() {
+        navLinks.style.right = "-200px";
+    }
+</script> 
+</body>
+</html>

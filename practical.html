@@ -1,0 +1,108 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SG Study Hub</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,600,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5225142257290868"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+    <section class="header">
+        
+        <nav>
+            <a href="index.html"><img src="images/logo.png"></a>
+            <div class="nav-links" id="navLinks">  
+                <i class="fa fa-close" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="index.html">HOME</a></li>
+                    <li><a href="code.html">OOP OUTPUTS</a></li>
+                    <li><a href="dbmsop.html">DBMS OUTPUT</a></li>
+                    <li><a href="practical.html">PRACTICALS</a></li>
+                    <li><a href="about.html">ABOUT</a></li>
+                    <li><a href="contact.html">CONTACT</a></li>
+                    <li><a href="micro.html">PDF TOOL</a></li>
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+
+        <div class="text-box">
+            <h1>PRACTICAL AND ASSIGNMENT</h1>
+            <p>You get all practicals & assignment here<br>For free within seconds</p>
+        </div>
+
+    </section>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .folder-container { display: flex; flex-wrap: wrap; justify-content: center; }
+        .folder { margin: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+        .pdf-list { list-style: none; padding: 0; }
+        .pdf-list li { margin: 5px 0; }
+    </style>
+</head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>PDF Manager</title>
+</head>
+<body>
+    <h2>PRACTICAL & ASSIGNMENT</h2>
+    <div class="folder-container" id="folders"></div>
+
+    <script>
+        const folders = [
+            { name: "OOP", link: "https://drive.google.com/drive/folders/1OU4bOT3Wcd4De27oLsyhhcBObyuQqh6p?usp=drive_link" },
+            { name: "DBMS", link: "https://drive.google.com/drive/folders/1OUWM9rugyAtIE-BObMCp5kUUYY9ZuKf-?usp=drive_link" },
+            { name: "ADSA", link: "https://drive.google.com/drive/folders/1OW0DbLal4ZUVkgWVmHn0w3yNw6zKrWqc?usp=drive_link" },
+            { name: "MP", link: "https://drive.google.com/drive/folders/1O_lSeO2V5nw9GI6l0QOacsMqKmX_5Yrt?usp=drive_link" },
+            { name: "IE", link: "https://drive.google.com/drive/folders/1OXtsIzYB2Mjdq7cGlB0XwJtp2iu9fvHf?usp=drive_link" },
+            { name: "IWS", link: "https://drive.google.com/drive/folders/1OZ6YZ1Lev0gOJqSHKHJ_Fjhr-Ej06oaO?usp=drive_link" },
+            { name: "French", link: "https://drive.google.com/drive/folders/1P4nSyE8LPZzJPzpxOWdNQNrevNFHZUJ-?usp=drive_link" },
+            { name: "Extra PDFs", link: "https://drive.google.com/drive/folders/1NveiZy6qncjjJmLPvt1l82AExcngBPEg?usp=drive_linkg" }
+        ];
+
+        function loadFolders() {
+            const container = document.getElementById("folders");
+            folders.forEach(folder => {
+                const div = document.createElement("div");
+                div.classList.add("folder");
+                div.innerHTML = `<h3><a href="${folder.link}" target="_blank">${folder.name}</a></h3>`;
+                container.appendChild(div);
+            });
+        }
+
+        loadFolders();
+    </script>
+    <section class="footer">
+        <h4>About Us</h4>
+        <p>This is my first website build for fun<br>To get any pdf anywhere and code output without any hassle</p>
+        <div class="icons">
+            <a href=""><i class="fa fa-facebook"></i></a>
+            <a href=""><i class="fa fa-twitter"></i></a>
+            <a href=""><i class="fa fa-instagram"></i></a>
+            <a href=""><i class="fa fa-linkedin"></i></a>
+            
+        </div>
+        <a href="" class="footer-link"><p>made with <i class="fa fa-heart-o"></i> by SG</p></a>
+    </section>    
+    
+    
+    <!----JavaScript for toggle menu---->
+    <script>
+    var navLinks = document.getElementById("navLinks");
+    
+    function showMenu() {
+        navLinks.style.right = "0";
+    }
+    
+    function hideMenu() {
+        navLinks.style.right = "-200px";
+    }
+    </script> 
+    
+    </body>
+    </html>
+</body>
+</html>

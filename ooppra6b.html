@@ -1,0 +1,136 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SG Study Hub</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,600,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5225142257290868"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+    <section class="sub-header">
+        <nav>
+            <a href="index.html"><img src="images/logo.png"></a>
+            <div class="nav-links" id="navLinks">  
+                <i class="fa fa-close" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="index.html">HOME</a></li>
+                    <li><a href="code.html">OOP OUTPUTS</a></li>
+                    <li><a href="dbmsop.html">DBMS OUTPUT</a></li>
+                    <li><a href="practical.html">PRACTICALS</a></li>
+                    <li><a href="about.html">ABOUT</a></li>
+                    <li><a href="contact.html">CONTACT</a></li>
+                    <li><a href="micro.html">PDF TOOL</a></li>
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+            <h1>Output pra 6b</h1>
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.16.0/pdf-lib.min.js"></script>
+</head>
+<body>
+    <h2>There is no input so direct Generate PDF for Java Packages</h2>
+    <button onclick="generatePDF()">Generate PDF</button>
+
+    <script>
+        async function generatePDF() {
+            const { PDFDocument, rgb } = PDFLib;
+
+            // Java Code for MyClass.java (package first)
+            const javaCodeMyClass = `Practical No 6b\n\n` +
+            `package myPackage;\n\n` +
+                `public class MyClass {\n` +
+                `    public void getNames(String s) {\n` +
+                `        System.out.println(s);\n` +
+                `    }\n` +
+                `}`;
+
+            // Java Code for Sitrc.java
+            const javaCodeSitrc = `import myPackage.*;\n\n` +
+                `public class Sitrc {\n` +
+                `   public static void main(String args[]) {\n` +
+                `      String s = \"Welcome to SITRC\";\n` +
+                `      MyClass m1 = new MyClass();\n` +
+                `      m1.getNames(s);\n` +
+                `   }\n` +
+                `}`;
+
+            // Simulated Output of Sitrc.java
+            const outputText = `Welcome to SITRC`;
+
+            const pdfDoc = await PDFDocument.create();
+            const font = await pdfDoc.embedFont(PDFLib.StandardFonts.Courier);
+            const pageSize = [600, 800];
+
+            // First Page (MyClass.java first, then Sitrc.java)
+            let page1 = pdfDoc.addPage(pageSize);
+            let y = pageSize[1] - 50;
+            page1.drawText("MyClass.java", { x: 50, y, size: 14, font, color: rgb(0, 0, 0) });
+            y -= 20;
+            javaCodeMyClass.split("\n").forEach(line => {
+                page1.drawText(line, { x: 50, y, size: 10, font, color: rgb(0, 0, 0) });
+                y -= 15;
+            });
+            
+            y -= 20;
+            page1.drawText("Sitrc.java", { x: 50, y, size: 14, font, color: rgb(0, 0, 0) });
+            y -= 20;
+            javaCodeSitrc.split("\n").forEach(line => {
+                page1.drawText(line, { x: 50, y, size: 10, font, color: rgb(0, 0, 0) });
+                y -= 15;
+            });
+
+            // Second Page (Output)
+            let page2 = pdfDoc.addPage(pageSize);
+            page2.drawRectangle({
+                x: 50,
+                y: pageSize[1] - 200,
+                width: 500,
+                height: 150,
+                color: rgb(0, 0, 0),
+            });
+            page2.drawText("Output:", { x: 70, y: pageSize[1] - 80, size: 14, font, color: rgb(1, 1, 1) });
+            page2.drawText(outputText, { x: 70, y: pageSize[1] - 120, size: 12, font, color: rgb(1, 1, 1) });
+
+            // Save and download PDF
+            const pdfBytes = await pdfDoc.save();
+            const blob = new Blob([pdfBytes], { type: "application/pdf" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "GeneratedPDF.pdf";
+            link.click();
+        }
+    </script>
+    <section class="footer">
+        <h4>About Us</h4>
+        <p>This is my first website build for fun<br>To get any pdf anywhere and code output without any hassle</p>
+        <div class="icons">
+            <a href=""><i class="fa fa-facebook"></i></a>
+            <a href=""><i class="fa fa-twitter"></i></a>
+            <a href=""><i class="fa fa-instagram"></i></a>
+            <a href=""><i class="fa fa-linkedin"></i></a>
+            
+        </div>
+        <a href="" class="footer-link"><p>made with <i class="fa fa-heart-o"></i> by SG</p></a>
+    </section>    
+    
+    
+    <!----JavaScript for toggle menu---->
+    <script>
+    var navLinks = document.getElementById("navLinks");
+    
+    function showMenu() {
+        navLinks.style.right = "0";
+    }
+    
+    function hideMenu() {
+        navLinks.style.right = "-200px";
+    }
+    </script> 
+    
+    </body>
+    </html>
+</body>
+</html>

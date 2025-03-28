@@ -1,0 +1,136 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SG Study Hub</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,600,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5225142257290868"
+     crossorigin="anonymous"></script> 
+</head>
+<body>
+    <section class="sub-header">
+        <nav>
+            <a href="index.html"><img src="images/logo.png"></a>
+            <div class="nav-links" id="navLinks">  
+                <i class="fa fa-close" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="index.html">HOME</a></li>
+                    <li><a href="code.html">OOP OUTPUTS</a></li>
+                    <li><a href="dbmsop.html">DBMS OUTPUT</a></li>
+                    <li><a href="practical.html">PRACTICALS</a></li>
+                    <li><a href="about.html">ABOUT</a></li>
+                    <li><a href="contact.html">CONTACT</a></li>
+                    <li><a href="micro.html">PDF TOOL</a></li>
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+            <h1>outputs pra 1b</h1>
+        </section>
+        
+        <h1>Enter Person Details</h1>
+        <form id="personForm"></form>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter name" required><br><br>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" placeholder="Enter age" required><br><br>
+
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" placeholder="Enter address" required><br><br>
+
+        <button type="button" onclick="generatePDF()">Generate PDF</button>
+        </form>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+        <script>
+        function generatePDF() {
+            const { jsPDF } = window.jspdf;
+
+            // Get the values from the form
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
+            const address = document.getElementById('address').value;
+
+            if (name && age && address) {
+            // Create a new PDF document
+            const doc = new jsPDF();
+
+            // Add content for the first page (the Java code and the values)
+            doc.setFontSize(12);
+            doc.text(`Practical No 1b\n\n` +`
+    public class Person {
+        String name;
+        int age;
+        String address;
+
+        public void getData(String n, int a, String add) {
+        name = n;
+        age = a;
+        address = add;
+        }
+
+        public void putData() {
+        System.out.println("Person name = " + name);
+        System.out.println("Person age = " + age);
+        System.out.println("Person address = " + address);
+        }
+
+        public static void main(String[] args) {
+        Person p1 = new Person();
+        p1.getData("${name}", ${age}, "${address}");
+        p1.putData();
+        }
+    }
+            `, 20, 30);
+
+            doc.addPage();
+
+            // Add the output of the code on the second page with a black box and white text
+            doc.setFont("courier", "normal");
+            doc.setTextColor(255, 255, 255);  // White text
+            doc.setFillColor(0, 0, 0);        // Black box
+            doc.rect(20, 20, 180, 50, 'F');   // Draw a filled black box
+            doc.text("<<<<<<<<<<<<<<<<<<<<<Output>>>>>>>>>>>>>>>>>>>>>", 25, 30);
+            doc.text(`Person name = ${name}`, 25, 40);
+            doc.text(`Person age = ${age}`, 25, 50);
+            doc.text(`Person address = ${address}`, 25, 60);
+
+            // Save the PDF with a given filename
+            doc.save('person_info.pdf');
+            } else {
+            alert('Please fill in all fields');
+            }
+        }
+        </script>
+    
+
+        <section class="footer">
+            <h4>About Us</h4>
+            <p>This is my first website build for fun<br>To get any pdf anywhere and code output without any hassle</p>
+            <div class="icons">
+                <a href=""><i class="fa fa-facebook"></i></a>
+                <a href=""><i class="fa fa-twitter"></i></a>
+                <a href=""><i class="fa fa-instagram"></i></a>
+                <a href=""><i class="fa fa-linkedin"></i></a>
+                
+            </div>
+            <a href="" class="footer-link"><p>made with <i class="fa fa-heart-o"></i> by SG </p></a>
+    </section>    
+      
+      
+    <!----JavaScript for toggle menu---->
+    <script>
+        var navLinks = document.getElementById("navLinks");
+    
+        function showMenu() {
+            navLinks.style.right = "0";
+        }
+    
+        function hideMenu() {
+            navLinks.style.right = "-200px";
+        }
+    </script> 
+</body>
+</html>

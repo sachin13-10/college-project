@@ -1,0 +1,183 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SG Study Hub</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,600,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5225142257290868"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+    <section class="sub-header">
+        <nav>
+            <a href="index.html"><img src="images/logo.png"></a>
+            <div class="nav-links" id="navLinks">  
+                <i class="fa fa-close" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="index.html">HOME</a></li>
+                    <li><a href="code.html">OOP OUTPUTS</a></li>
+                    <li><a href="dbmsop.html">DBMS OUTPUT</a></li>
+                    <li><a href="practical.html">PRACTICALS</a></li>
+                    <li><a href="about.html">ABOUT</a></li>
+                    <li><a href="contact.html">CONTACT</a></li>
+                    <li><a href="micro.html">PDF TOOL</a></li>
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+            <h1>Output pra 4a</h1>
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.16.0/pdf-lib.min.js"></script>
+    <style>
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Generate PDF for Java Inheritance Code</h2>
+    <div class="input-container">
+        <label for="name">Name:</label>
+        <input type="text" id="name" placeholder="Enter name">
+        <label for="age">Age:</label>
+        <input type="number" id="age" placeholder="Enter age">
+        <label for="rollNo">Roll No:</label>
+        <input type="number" id="rollNo" placeholder="Enter roll no">
+        <label for="marks">Marks:</label>
+        <input type="number" step="0.01" id="marks" placeholder="Enter marks">
+    </div>
+    <br>
+    <button onclick="generatePDF()">Generate PDF</button>
+
+    <script>
+        async function generatePDF() {
+            const { PDFDocument, rgb } = PDFLib;
+            const name = document.getElementById("name").value;
+            const age = document.getElementById("age").value;
+            const rollNo = document.getElementById("rollNo").value;
+            const marks = document.getElementById("marks").value;
+
+            const javaCode = `Practical No 4a\n\n` +
+            `import java.util.Scanner;\n` +
+                `class Person {\n` +
+                `    String name;\n` +
+                `    int age;\n\n` +
+                `    Scanner sc = new Scanner(System.in);\n` +
+                `    Person() {\n` +
+                `        System.out.println(\"Enter the name:\");\n` +
+                `        name = sc.nextLine();\n` +
+                `        System.out.println(\"Enter the age:\");\n` +
+                `        age = sc.nextInt();\n` +
+                `    }\n\n` +
+                `    void display() {\n` +
+                `        System.out.println(\"Name: \" + name);\n` +
+                `        System.out.println(\"Age: \" + age);\n` +
+                `    }\n` +
+                `}\n\n` +
+                `class Student extends Person {\n` +
+                `    int roll_No;\n` +
+                `    float marks;\n\n` +
+                `    Student() {\n` +
+                `        System.out.println(\"Enter the roll no:\");\n` +
+                `        roll_No = sc.nextInt();\n` +
+                `        System.out.println(\"Enter the marks of student:\");\n` +
+                `        marks = sc.nextFloat();\n` +
+                `    }\n\n` +
+                `    void display1() {\n` +
+                `        display();\n` +
+                `        System.out.println(\"Roll no: \" + roll_No);\n` +
+                `        System.out.println(\"Marks: \" + marks);\n` +
+                `    }\n` +
+                `}\n\n` +
+                `class SingleInheritanceFromUser {\n` +
+                `    public static void main(String[] args) {\n` +
+                `        Student s = new Student();\n` +
+                `        s.display1();\n` +
+                `    }\n` +
+                `}`;
+
+            const outputText = ` Output:\n` +
+                `Enter the name: ${name}\n` +
+                `Enter the age: ${age}\n` +
+                `Enter the roll no: ${rollNo}\n` +
+                `Enter the marks of student: ${marks}\n` +
+                `Name: ${name}\n` +
+                `Age: ${age}\n` +
+                `Roll no: ${rollNo}\n` +
+                `Marks: ${marks}`;
+
+            const pdfDoc = await PDFDocument.create();
+            const font = await pdfDoc.embedFont(PDFLib.StandardFonts.Courier);
+            const pageSize = [600, 800];
+            let currentPage = pdfDoc.addPage(pageSize);
+            let y = pageSize[1] - 50;
+
+            const lines = javaCode.split("\n");
+            for (const line of lines) {
+                if (y < 50) {
+                    currentPage = pdfDoc.addPage(pageSize);
+                    y = pageSize[1] - 50;
+                }
+                currentPage.drawText(line, { x: 50, y, size: 10, font, color: rgb(0, 0, 0) });
+                y -= 15;
+            }
+
+            const outputPage = pdfDoc.addPage(pageSize);
+            outputPage.drawRectangle({
+                x: 50,
+                y: pageSize[1] - 200,
+                width: 500,
+                height: 150,
+                color: rgb(0, 0, 0),
+            });
+            outputPage.drawText(outputText, {
+                x: 70,
+                y: pageSize[1] - 100,
+                size: 12,
+                font,
+                color: rgb(1, 1, 1),
+            });
+
+            const pdfBytes = await pdfDoc.save();
+            const blob = new Blob([pdfBytes], { type: "application/pdf" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "GeneratedPDF.pdf";
+            link.click();
+        }
+    </script>
+    <section class="footer">
+        <h4>About Us</h4>
+        <p>This is my first website build for fun<br>To get any pdf anywhere and code output without any hassle</p>
+        <div class="icons">
+            <a href=""><i class="fa fa-facebook"></i></a>
+            <a href=""><i class="fa fa-twitter"></i></a>
+            <a href=""><i class="fa fa-instagram"></i></a>
+            <a href=""><i class="fa fa-linkedin"></i></a>
+            
+        </div>
+        <a href="" class="footer-link"><p>made with <i class="fa fa-heart-o"></i> by SG</p></a>
+    </section>    
+    
+    
+    <!----JavaScript for toggle menu---->
+    <script>
+    var navLinks = document.getElementById("navLinks");
+    
+    function showMenu() {
+        navLinks.style.right = "0";
+    }
+    
+    function hideMenu() {
+        navLinks.style.right = "-200px";
+    }
+    </script> 
+    
+    </body>
+    </html>
+</body>
+</html>
