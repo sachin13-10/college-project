@@ -17,58 +17,52 @@
         <div id="navbar"></div>
             <h1>DBMS OUTPUTS PDF </h1>
     </section>
-    
-<!---------- Blog Page Content ---------->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main Page with Links</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-
-        .page-link {
-            margin: 10px;
-            padding: 10px;
-            font-size: 18px;
-            background-color: #4CAF50;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-
-        .page-link:hover {
-            background-color: #45a049;
-        }
-    </style>
-</head>
 <body>
+  <style>
+    .practical-links {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .practical-btn {
+      font-size: 16px;
+      padding: 10px 15px;
+      background-color: green;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+
+    .practical-links hr {
+      width: 50%;
+    }
+  </style>
+
     <p><h5>Only the output database for Practical 1 is editable. The remaining three are direct PDFs that you can download and attach to your practicals.
 <br>
         Click the links below to download the output PDFs</h5></p>
 
 
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
-            <h3>Practical 1</h3>
-            <a href="dbmspra1.html" class="page-link" style="font-size: 16px; padding: 10px 15px;">Practical 1</a>
-            <hr style="width: 50%;">
+        <div class="practical-links">
+          <h3>Practical 1</h3>
+          <a href="dbmspra1.html" class="practical-btn">Practical 1</a>
+          <hr>
 
-            <h3>Practical 2</h3>
-            <a href="dbms/dbms pra2.pdf" class="page-link" style="font-size: 16px; padding: 10px 15px;">Practical 2</a>
-            <hr style="width: 50%;">
+          <h3>Practical 2</h3>
+          <a href="dbms/dbms pra2.pdf" class="practical-btn">Practical 2</a>
+          <hr>
 
-            <h3>Practical 3</h3>
-            <a href="dbms/dbms pra3.pdf" class="page-link" style="font-size: 16px; padding: 10px 15px;">Practical 3</a>
-            <hr style="width: 50%;">
+          <h3>Practical 3</h3>
+          <a href="dbms/dbms pra3.pdf" class="practical-btn">Practical 3</a>
+          <hr>
 
-            <h3>Practical 4</h3>
-            <a href="dbms/dbms pra4.pdf" class="page-link" style="font-size: 16px; padding: 10px 15px;">Practical 4</a>
+          <h3>Practical 4</h3>
+          <a href="dbms/dbms pra4.pdf" class="practical-btn">Practical 4</a>
         </div>
 
+      
 <!-------- footer ---------->
 
 <div id="footer"></div>
