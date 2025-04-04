@@ -9,25 +9,15 @@
      crossorigin="anonymous"></script>
     <link rel="icon" href="images/logo.png" type="image/png">
     <link rel="icon" href="images/favicon.png" type="image/png">
+
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </head>
 <body>
     <section class="sub-header">
-        <nav>
-            <a href="index.html"><img src="images/logo.png"></a>
-            <div class="nav-links" id="navLinks">  
-                <i class="fa fa-close" onclick="hideMenu()"></i>
-                <ul>
-                    <li><a href="index.html">HOME</a></li>
-                    <li><a href="code.html">OOP OUTPUTS</a></li>
-                    <li><a href="dbmsop.html">DBMS OUTPUT</a></li>
-                    <li><a href="practical.html">PRACTICALS</a></li>
-                    <li><a href="about.html">ABOUT</a></li>
-                    <li><a href="contact.html">CONTACT</a></li>
-                    <li><a href="micro.html">PDF TOOL</a></li>
-                </ul>
-            </div>
-            <i class="fa fa-bars" onclick="showMenu()"></i>
-        </nav>
+        <div id="navbar"></div>
             <h1>OOP CODE OUTPUTS PDF </h1>
     </section>
     
@@ -62,68 +52,53 @@
 <body>
     <p>Click the links below to get output pdf</p>
 
-    <div>
+    <div style="text-align: center;"></div>
         <h3>Practical 1</h3>
-        <a href="ooppra1a.html" class="page-link">Practical 1a</a>
-        <a href="ooppra1b.html" class="page-link">Practical 1b</a>
+        <a href="ooppra1a.html" class="page-link" style="width: 150px; display: inline-block;">Practical 1a</a>
+        <a href="ooppra1b.html" class="page-link" style="width: 150px; display: inline-block;">Practical 1b</a>
         <p>      </p>
         <hr>
         
         <h3>Practical 2</h3>
-        <a href="ooppra2a.html" class="page-link">Practical 2a</a>
-        <a href="ooppra2b.html" class="page-link">Practical 2b</a>
+        <a href="ooppra2a.html" class="page-link" style="width: 150px; display: inline-block;">Practical 2a</a>
+        <a href="ooppra2b.html" class="page-link" style="width: 150px; display: inline-block;">Practical 2b</a>
         <p>      </p>
         <hr>
         
         <h3>Practical 3</h3>
-        <a href="ooppra3a.html" class="page-link">Practical 3a</a>
-        <a href="ooppra3b.html" class="page-link">Practical 3b</a>
-        <a href="ooppra3c.html" class="page-link">Practical 3c</a>
+        <a href="ooppra3a.html" class="page-link" style="width: 150px; display: inline-block;">Practical 3a</a>
+        <a href="ooppra3b.html" class="page-link" style="width: 150px; display: inline-block;">Practical 3b</a>
+        <a href="ooppra3c.html" class="page-link" style="width: 150px; display: inline-block;">Practical 3c</a>
         <p>      </p>
         <hr>
     
         
         <h3>Practical 4</h3>
-        <a href="ooppra4a.html" class="page-link">Practical 4a</a>
-        <a href="ooppra4b.html" class="page-link">Practical 4b</a>
+        <a href="ooppra4a.html" class="page-link" style="width: 150px; display: inline-block;">Practical 4a</a>
+        <a href="ooppra4b.html" class="page-link" style="width: 150px; display: inline-block;">Practical 4b</a>
         <p>      </p>
         <hr>
         
         <h3>Practical 5</h3>
-        <a href="ooppra5.html" class="page-link">Practical 5</a>
+        <a href="ooppra5.html" class="page-link" style="width: 150px; display: inline-block;">Practical 5</a>
         <p>      </p>
         <hr>
         
         <h3>Practical 6</h3>
-        <a href="ooppra6a.html" class="page-link">Practical 6a</a>
-        <a href="ooppra6b.html" class="page-link">Practical 6b</a>
+        <a href="ooppra6a.html" class="page-link" style="width: 150px; display: inline-block;">Practical 6a</a>
+        <a href="ooppra6b.html" class="page-link" style="width: 150px; display: inline-block;">Practical 6b</a>
         <p>      </p>
         <hr>
     </div>
-</body>
-</html>
 
 <!-------- footer ---------->
 
 
-<section class="footer">
-    <h4>About Us</h4>
-    <p>This is my first website built for fun.<br>Get any PDF or code output anywhere without any hassle.</p>
-    <div class="icons">
-        <a href=""><i class="fa fa-facebook"></i></a>
-        <a href=""><i class="fa fa-twitter"></i></a>
-        <a href=""><i class="fa fa-instagram"></i></a>
-        <a href=""><i class="fa fa-linkedin"></i></a>
-    </div>
-
-    <a href="privacypolicy.html" class="btn btn-link mt-3">Privacy Policy</a>
-
-    <br>
-<a href="disclaimer.html" class="btn btn-link mt-3">Disclaimer</a>
 
 
-<a href="" class="footer-link"><p>Made with <i class="fa fa-heart-o"></i> by SG</p></a>
-</section>
+<div id="footer"></div>
+
+
     
 
 
@@ -140,5 +115,29 @@ function hideMenu() {
 }
 </script> 
     
+
+<div id="navbar"></div> <!-- Placeholder for Navbar -->
+<div id="footer"></div> <!-- Placeholder for Footer -->
+
+<script>
+  // Dynamically load navbar and footer
+  fetch("navbar.html")
+    .then(res => res.text())
+    .then(data => document.getElementById("navbar").innerHTML = data);
+
+  fetch("footer.html")
+    .then(res => res.text())
+    .then(data => document.getElementById("footer").innerHTML = data);
+
+  // JavaScript for toggle menu
+  function showMenu() {
+    document.getElementById("navLinks").style.right = "0";
+  }
+
+  function hideMenu() {
+    document.getElementById("navLinks").style.right = "-200px";
+  }
+</script>
+
 </body>
 </html>    

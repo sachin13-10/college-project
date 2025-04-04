@@ -9,25 +9,30 @@
      crossorigin="anonymous"></script>
     <link rel="icon" href="images/logo.png" type="image/png">
     <link rel="icon" href="images/favicon.png" type="image/png">
+
+
+<style>
+    .page-link {
+        display: inline-block;
+        margin: 10px;
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #4CAF50;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    .page-link:hover {
+        background-color: #45a049;
+    }
+</style>
+
 </head>
 <body>
     <section class="sub-header">
-        <nav>
-            <a href="index.html"><img src="images/logo.png"></a>
-            <div class="nav-links" id="navLinks">  
-                <i class="fa fa-close" onclick="hideMenu()"></i>
-                <ul>
-                    <li><a href="index.html">HOME</a></li>
-                    <li><a href="code.html">OOP OUTPUTS</a></li>
-                    <li><a href="dbmsop.html">DBMS OUTPUT</a></li>
-                    <li><a href="practical.html">PRACTICALS</a></li>
-                    <li><a href="about.html">ABOUT</a></li>
-                    <li><a href="contact.html">CONTACT</a></li>
-                    <li><a href="micro.html">PDF TOOL</a></li>
-                </ul>
-            </div>
-            <i class="fa fa-bars" onclick="showMenu()"></i>
-        </nav>
+        <div id="navbar"></div>
             <h1>Output pra 4b</h1>
     </section>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.16.0/pdf-lib.min.js"></script>
@@ -144,24 +149,11 @@
         }
     </script>
     
-<section class="footer">
-    <h4>About Us</h4>
-    <p>This is my first website built for fun.<br>Get any PDF or code output anywhere without any hassle.</p>
-    <div class="icons">
-        <a href=""><i class="fa fa-facebook"></i></a>
-        <a href=""><i class="fa fa-twitter"></i></a>
-        <a href=""><i class="fa fa-instagram"></i></a>
-        <a href=""><i class="fa fa-linkedin"></i></a>
-    </div>
-
-    <a href="privacypolicy.html" class="btn btn-link mt-3">Privacy Policy</a>
-
-    <br>
-<a href="disclaimer.html" class="btn btn-link mt-3">Disclaimer</a>
 
 
-<a href="" class="footer-link"><p>Made with <i class="fa fa-heart-o"></i> by SG</p></a>
-</section>
+<div id="footer"></div>
+
+
     
     
     
@@ -178,7 +170,31 @@
     }
     </script> 
     
-    </body>
+    
+<div id="navbar"></div> <!-- Placeholder for Navbar -->
+<div id="footer"></div> <!-- Placeholder for Footer -->
+
+<script>
+  // Dynamically load navbar and footer
+  fetch("navbar.html")
+    .then(res => res.text())
+    .then(data => document.getElementById("navbar").innerHTML = data);
+
+  fetch("footer.html")
+    .then(res => res.text())
+    .then(data => document.getElementById("footer").innerHTML = data);
+
+  // JavaScript for toggle menu
+  function showMenu() {
+    document.getElementById("navLinks").style.right = "0";
+  }
+
+  function hideMenu() {
+    document.getElementById("navLinks").style.right = "-200px";
+  }
+</script>
+
+</body>
     </html>
 </body>
 </html>

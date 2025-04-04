@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Terms and Conditions</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      line-height: 1.6;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    h1 {
+      color: #2c3e50;
+    }
+    a {
+      color: #2980b9;
+    }
+  </style>
+</head>
+<body>
+  <section class="sub-header">
+    <div id="navbar"></div>
+</section>
+<div class="container py-5">
+  <div class="card shadow-lg">
+    <div class="card-body">
+  <h1>Terms and Conditions</h1>
+  <p>Last updated: April 4, 2025</p>
+
+  <p>Welcome to <strong>SG Study Hub</strong> (sgstudyhun.xyz). By accessing or using this website, you agree to comply with and be bound by the following terms and conditions. If you disagree with any part of the terms, please do not use the website.</p>
+
+  <h2>1. Purpose of the Website</h2>
+  <p>This website is intended for educational purposes only. The tools and resources provided here, including PDF utilities, are designed to support learning, revision, and academic preparation.</p>
+
+  <h2>2. Prohibited Use</h2>
+  <p>Users are strictly prohibited from using this website or its tools for:</p>
+  <ul>
+    <li>Cheating in exams or assessments</li>
+    <li>Any activity that violates academic integrity policies</li>
+    <li>Sharing or uploading copyrighted or confidential material</li>
+  </ul>
+  <p>We do not encourage or support misuse of the tools for unethical or dishonest purposes.</p>
+
+  <h2>3. User Responsibility</h2>
+  <p>Each user is responsible for how they use the website. The creator of the website is not liable for any misuse of the resources or consequences arising from such misuse.</p>
+
+  <h2>4. Changes to Terms</h2>
+  <p>We may update these Terms and Conditions from time to time. Continued use of the website after any changes means you accept the updated terms.</p>
+
+  <h2>5. Contact</h2>
+  <p>If you have questions or concerns about these terms, you can contact the website administrator.</p>
+
+  <p><a href="/">Return to Home</a></p>
+</div>
+</div>
+</div>
+<div id="footer"></div> <!-- Placeholder for Footer -->
+
+<script>
+  // Dynamically load navbar and footer
+  fetch("navbar.html")
+    .then(res => res.text())
+    .then(data => document.getElementById("navbar").innerHTML = data);
+
+  fetch("footer.html")
+    .then(res => res.text())
+    .then(data => document.getElementById("footer").innerHTML = data);
+
+  // JavaScript for toggle menu
+  function showMenu() {
+    document.getElementById("navLinks").style.right = "0";
+  }
+
+  function hideMenu() {
+    document.getElementById("navLinks").style.right = "-200px";
+  }
+</script>
+
+</body>
+</html>
