@@ -19,105 +19,430 @@
 
 <script>
 const experiments = {
-    "Experiment 1 - Part A": `import java.lang.*;
-class Student {
- int Roll_no; String name; int marks;
- public void getdata(int r, String n, int m) { Roll_no=r; name=n; marks=m; }
- public void putdata() {
- System.out.println(">>>> OUTPUT >>>>");
- System.out.println("Roll Number = " +Roll_no);
- System.out.println("Name of the student = " +name);
- System.out.println("Marks of the student = " +marks); }
- public static void main(String args[]) { Student s1=new Student(); s1.getdata(69,"Tushar",480); s1.putdata(); } }`,
+    "Write a Java program that demonstrates the creation of a class with data members and methods. - Part A": {
+        question: "Write a Java program that demonstrates the creation of a class with data members and methods.",
+        code: `import java.lang.*;
+class Student { 
+    int Roll_no; String name; int marks;
+    public void getdata(int r, String n, int m) { 
+        Roll_no = r; name = n; marks = m; 
+    }
+    public void putdata() { 
+        System.out.println(">>>> OUTPUT >>>>");
+        System.out.println("Roll Number = " + Roll_no);
+        System.out.println("Name of the student = " + name);
+        System.out.println("Marks of the student = " + marks); 
+    }
+    public static void main(String args[]) { 
+        Student s1 = new Student(); 
+        s1.getdata(69, "Tushar", 480); 
+        s1.putdata(); 
+    } 
+}`
+    },
+    "Write a Java program to store personal information in a class and print it - Part B": {
+        question: "Write a Java program to store personal information in a class and print it.",
+        code: `import java.lang.*;
+class Person { 
+    String name;  
+    int age; 
+    String Address;
+    public void getdata(String n, int a, String add) { 
+        name = n; 
+        age = a; 
+        Address = add; 
+    } 
+    public void putdata() { 
+        System.out.println("Person name = " + name); 
+        System.out.println("Person age = " + age); 
+        System.out.println("Person Address = " + Address); 
+    } 
+} 
+public class Main { 
+    public static void main(String args[]) { 
+        Person p1 = new Person(); 
+        p1.getdata("Tushar Visave", 19, "Ashoka Marg, Nashik"); 
+        p1.putdata(); 
+    } 
+}`
+    },
+    "Write a Java program to demonstrate constructor overloading with employee details.- Part A": {
+        question: "Write a Java program to demonstrate constructor overloading with employee details.",
+        code: `import java.lang.*;
+class Employee { 
+    int ID; 
+    String name; 
+    String des;
+    Employee() { 
+        System.out.println("Employee Details"); 
+        int ID = 112023304; 
+        String name = "Tushar"; 
+        String des = "Manager"; 
+        System.out.println("Employee ID = " + ID); 
+        System.out.println("Employee name = " + name); 
+        System.out.println("Employee designation = " + des); 
+    }
+    Employee(int i, String n, String d) { 
+        System.out.println("Employee Details"); 
+        ID = i; 
+        name = n; 
+        des = d; 
+        System.out.println("Employee ID = " + ID); 
+        System.out.println("Employee name = " + name); 
+        System.out.println("Employee designation = " + des); 
+    }
+    public static void main(String args[]) { 
+        Employee e1 = new Employee(); 
+        Employee e2 = new Employee(112023309, "Shreyas", "CEO"); 
+    } 
+}`
+    },
+    "Write a Java program to demonstrate method overloading by multiplying different numbers of integers.- Part B": {
+        question: "Write a Java program to demonstrate method overloading by multiplying different numbers of integers.",
+        code: `import java.lang.*;
+class Multiply { 
+    int a, b, c, d;
+    Multiply() { 
+        int a = 2, b = 4; 
+        System.out.println("Multiplication = " + (a * b)); 
+    }
+    Multiply(int p, int q) { 
+        a = p; 
+        b = q; 
+        System.out.println("Multiplication = " + (a * b)); 
+    }
+    Multiply(int p, int q, int r) { 
+        a = p; 
+        b = q; 
+        c = r; 
+        System.out.println("Multiplication = " + (a * b * c)); 
+    }
+    Multiply(int p, int q, int r, int s) { 
+        a = p; 
+        b = q; 
+        c = r; 
+        d = s; 
+        System.out.println("Multiplication = " + (a * b * c * d)); 
+    }
+    public static void main(String args[]) { 
+        new Multiply(); 
+        new Multiply(5, 6); 
+        new Multiply(9, 5, 7); 
+        new Multiply(8, 9, 3, 4); 
+    } 
+}`
+    },
+    "Write a Java program to count numeric characters in a string 3 - Part A": {
+        question: "Write a Java program to count numeric characters in a string.",
+        code: `public class NumericCharacterCounter { 
+    public static void main(String[] args) { 
+        String input = "ABCD1234EDF89XYZ"; 
+        int count = 0; 
+        for (int i = 0; i < input.length(); i++) { 
+            if (input.charAt(i) >= '0' && input.charAt(i) <= '9') { 
+                count++; 
+            } 
+        } 
+        System.out.println("Number of numeric characters: " + count); 
+    } 
+}`
+    },
+    "Write a Java program to count occurrences of a given character in a string. 3 - Part B": {
+        question: "Write a Java program to count occurrences of a given character in a string.",
+        code: `public class CharacterOccurrenceCounter { 
+    public static void main(String[] args) { 
+        String input = "ABCAD1234EDF89AXYZ"; 
+        char target = 'A'; 
+        int count = 0; 
+        for (int i = 0; i < input.length(); i++) { 
+            if (input.charAt(i) == target) { 
+                count++; 
+            } 
+        } 
+        System.out.println("Number of occurrences of 'A': " + count); 
+    } 
+}`
+    },
+    "Write a Java program to reverse a string. 3 - Part C": {
+        question: "Write a Java program to reverse a string.",
+        code: `public class ReverseString { 
+    public static void main(String[] args) { 
+        String input = "ABCD1234EDF89XYZ"; 
+        String reversed = ""; 
+        for (int i = input.length() - 1; i >= 0; i--) { 
+            reversed += input.charAt(i); 
+        } 
+        System.out.println("Reversed string: " + reversed); 
+    } 
+}`
+    },
+    "Write a Java program to implement inheritance with 'Person' and 'Student' classes 4 - Part A": {
+        question: "Write a Java program to implement inheritance with 'Person' and 'Student' classes.",
+        code: `class Person { 
+    protected String name; 
+    protected int age; 
+    public Person(String name, int age) { 
+        this.name = name; 
+        this.age = age; 
+    } 
+    public void display() { 
+        System.out.println("Name: " + name); 
+        System.out.println("Age: " + age); 
+    } 
+}
+class Student extends Person { 
+    private int rollNo; 
+    private int marks; 
+    public Student(String name, int age, int rollNo, int marks) { 
+        super(name, age); 
+        this.rollNo = rollNo; 
+        this.marks = marks; 
+    } 
+    @Override 
+    public void display() { 
+        super.display(); 
+        System.out.println("Roll No: " + rollNo); 
+        System.out.println("Marks: " + marks); 
+    } 
+}
+public class PersonStudentDemo { 
+    public static void main(String[] args) { 
+        Student student = new Student("TUSHAR", 20, 101, 85); 
+        student.display(); 
+    } 
+}`
+    },
+    "Write a Java program that demonstrates method overriding with 'Student' and 'Exam' classes. 4 - Part B": {
+        question: "Write a Java program that demonstrates method overriding with 'Student' and 'Exam' classes.",
+        code: `class Student { 
+    String name; 
+    int rollNo; 
+    Student(String name, int rollNo) { 
+        this.name = name; 
+        this.rollNo = rollNo; 
+    } 
+    void displayBasicInfo() { 
+        System.out.println("Name: " + name); 
+        System.out.println("Roll No: " + rollNo); 
+    } 
+}
+class Exam extends Student { 
+    String grade; 
+    Exam(String name, int rollNo, String grade) { 
+        super(name, rollNo); 
+        this.grade = grade; 
+    } 
+    void displayExamInfo() { 
+        displayBasicInfo(); 
+        System.out.println("Grade: " + grade); 
+    } 
+}
+public class Main { 
+    public static void main(String[] args) { 
+        Exam exam = new Exam("Tushar Visave", 69, "A"); 
+        exam.displayExamInfo(); 
+    } 
+}`
+    },
+    "Write a Java program that implements interfaces to display student details with percentage and grade. 5 - Part A": {
+        question: "Write a Java program that implements interfaces to display student details with percentage and grade.",
+        code: `interface Exam { 
+    double getPer(); 
+}
+class Student implements Exam { 
+    String rollNo; 
+    String name;
+    Student(String rollNo, String name) { 
+        this.rollNo = rollNo; 
+        this.name = name; 
+    }
+    @Override 
+    public double getPer() { 
+        return 85.5; 
+    } 
+    public void display() { 
+        System.out.println("Roll No: " + rollNo); 
+        System.out.println("Name: " + name); 
+        System.out.println("Percentage: " + getPer() + "%"); 
+    } 
+}
+class Result extends Student { 
+    String grade; 
+    Result(String rollNo, String name, String grade) { 
+        super(rollNo, name); 
+        this.grade = grade; 
+    } 
+    @Override 
+    public void display() { 
+        super.display(); 
+        System.out.println("Grade: " + grade); 
+    } 
+}
+public class Main { 
+    public static void main(String[] args) { 
+        Result studentResult = new Result("101", "Tushar Visave", "A"); 
+        studentResult.display(); 
+    } 
+}`
+    },
+    "Write a Java program to demonstrate multiple interfaces using Duck class implementing Walkable and Swimmable interfaces. 5 - Part B": {
+        question: "Write a Java program to demonstrate multiple interfaces using Duck class implementing Walkable and Swimmable interfaces.",
+        code: `interface Walkable { 
+    void walk(); 
+}
+interface Swimmable { 
+    void swim(); 
+}
+class Duck implements Walkable, Swimmable { 
+    public void walk() { 
+        System.out.println("The duck is walking."); 
+    } 
+    public void swim() { 
+        System.out.println("The duck is swimming."); 
+    } 
+}
+public class Main { 
+    public static void main(String[] args) { 
+        Duck duck = new Duck(); 
+        duck.walk(); 
+        duck.swim(); 
+    } 
+}`
+    },
+    "Write a Java program that demonstrates package usage by importing classes from different packages. 6": {
+        question: "Write a Java program that demonstrates package usage by importing classes from different packages.",
+        code: `package myPackage; 
+public class MyClass { 
+    public void getNames(String s) { 
+        System.out.println(s); 
+    } 
+}
+package P1; 
+public class Main { 
+    public static void main(String[] args) { 
+        myPackage.MyClass obj = new myPackage.MyClass(); 
+        obj.getNames("Tushar"); 
+    } 
+}`
+    },
+    "Write a Java program to demonstrate file input/output operations. 7": {
+        question: "Write a Java program to demonstrate file input/output operations.",
+        code: `import java.io.*;
+public class FileDemo { 
+    public static void main(String[] args) throws IOException { 
+        FileWriter writer = new FileWriter("test.txt"); 
+        BufferedWriter buffer = new BufferedWriter(writer); 
+        buffer.write("Hello, World!"); 
+        buffer.close();
+        FileReader reader = new FileReader("test.txt"); 
+        BufferedReader br = new BufferedReader(reader); 
+        String line; 
+        while ((line = br.readLine()) != null) { 
+            System.out.println(line); 
+        } 
+        br.close(); 
+    } 
+}`
+    },
+    "Write a Java program to demonstrate synchronization in threads by printing numbers using synchronized blocks. 8": {
+        question: "Write a Java program to demonstrate synchronization in threads by printing numbers using synchronized blocks.",
+        code: `class Counter {
+    private int count = 0;
+    synchronized void increment() {
+        count++;
+    }
+    synchronized int getCount() {
+        return count;
+    }
+}
+class CounterThread extends Thread {
+    private Counter counter;
+    CounterThread(Counter counter) {
+        this.counter = counter;
+    }
+    public void run() {
+        for (int i = 0; i < 1000; i++) {
+            counter.increment();
+        }
+    }
+}
+public class SyncDemo {
+    public static void main(String[] args) throws InterruptedException {
+        Counter counter = new Counter();
+        CounterThread t1 = new CounterThread(counter);
+        CounterThread t2 = new CounterThread(counter);
+        t1.start();
+        t2.start();
+        t1.join();
+        t2.join();
+        System.out.println("Count = " + counter.getCount());
+    }
+}`
+    },
+    "Write a Java program to read a file and display its content. Handle file not found and IO exceptions. 9 - Part A": {
+        question: "Write a Java program to read a file and display its content. Handle file not found and IO exceptions.",
+        code: `import java.io.*;
+public class ReadFile {
+    public static void main(String[] args) {
+        File file = new File("test.txt");
+        try {
+            FileReader fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            while ((line = br.readLine()) != null) {
+                System.out.println(line);
+            }
+            br.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+        }
+    }
+}`
+    },
+    "Write a Java program to write data into a file and then read and display it. 9 - Part B": {
+        question: "Write a Java program to write data into a file and then read and display it.",
+        code: `import java.io.*;
+public class WriteFile {
+    public static void main(String[] args) {
+        try {
+            FileWriter fw = new FileWriter("output.txt");
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write("This is a test file content.");
+            bw.close();
 
-    "Experiment 1 - Part B": `import java.lang.*;
-class Person { String name; int age; String Address;
- public void getdata(String n, int a, String add) { name=n; age=a; Address=add; }
- public void putdata() { System.out.println("Person name = " +name); System.out.println("Person age = " +age); System.out.println("Person Address = " +Address); }
- public static void main(String args[]) { Person p1=new Person(); p1.getdata("Tushar Visave",19,"Ashoka Marg,Nashik"); p1.putdata(); } }`,
-
-    "Experiment 2 - Part A": `import java.lang.*;
-class Employee { int ID; String name; String des;
- Employee() { System.out.println("Employee Details"); int ID = 112023304; String name = "Tushar"; String des = "manager"; System.out.println("Employee ID = " +ID); System.out.println("Employee name = " +name); System.out.println("Employee designation = " +des); }
- Employee(int i, String n, String d){ System.out.println("Employee Details"); ID = i; name = n; des = d; System.out.println("Employee ID = " +ID); System.out.println("Employee name = " +name); System.out.println("Employee designation = " +des); }
- public static void main(String args[]) { Employee e1 = new Employee(); Employee e2 = new Employee(112023309,"Shreyas","CEO"); } }`,
-
-    "Experiment 2 - Part B": `import java.lang.*;
-class Multiply {
- int a,b,c,d;
- Multiply() { int a=2,b=4; System.out.println("Multiplication = " +(a*b)); }
- Multiply(int p, int q) { a=p; b=q; System.out.println("Multiplication = " +(a*b)); }
- Multiply(int p, int q, int r) { a=p; b=q; c=r; System.out.println("Multiplication = " +(a*b*c)); }
- Multiply(int p, int q, int r, int s) { a=p; b=q; c=r; d=s; System.out.println("Multiplication = " +(a*b*c*d)); }
- public static void main(String args[]) { new Multiply(); new Multiply(5,6); new Multiply(9,5,7); new Multiply(8,9,3,4); } }`,
-
-    "Experiment 3 - Part A": `public class NumericCharacterCounter { public static void main(String[] args) { String input = "ABCD1234EDF89XYZ"; int count = 0; for (int i = 0; i < input.length(); i++) { if (input.charAt(i) >= '0' && input.charAt(i) <= '9') { count++; } } System.out.println("Number of numeric characters: " + count); } }`,
-
-    "Experiment 3 - Part B": `public class CharacterOccurrenceCounter { public static void main(String[] args) { String input = "ABCAD1234EDF89AXYZ"; char target = 'A'; int count = 0; for (int i = 0; i < input.length(); i++) { if (input.charAt(i) == target) { count++; } } System.out.println("Number of occurrences of 'A': " + count); } }`,
-
-    "Experiment 3 - Part C": `public class ReverseString { public static void main(String[] args) { String input = "ABCD1234EDF89XYZ"; String reversed = ""; for (int i = input.length() - 1; i >= 0; i--) { reversed += input.charAt(i); } System.out.println("Reversed string: " + reversed); } }`,
-
-    "Experiment 4 - Part A": `class Person { protected String name; protected int age; public Person(String name, int age) { this.name = name; this.age = age; } public void display() { System.out.println("Name: " + name); System.out.println("Age: " + age); } }
-class Student extends Person { private int rollNo; private int marks; public Student(String name, int age, int rollNo, int marks) { super(name, age); this.rollNo = rollNo; this.marks = marks; } @Override public void display() { super.display(); System.out.println("Roll No: " + rollNo); System.out.println("Marks: " + marks); } }
-public class PersonStudentDemo { public static void main(String[] args) { Student student = new Student("TUSHAR", 20, 101, 85); student.display(); } }`,
-
-    "Experiment 4 - Part B": `class Student { String name; int rollNo; Student(String name, int rollNo) { this.name = name; this.rollNo = rollNo; } void displayBasicInfo() { System.out.println("Name: " + name); System.out.println("Roll No: " + rollNo); } }
-class Exam extends Student { String grade; Exam(String name, int rollNo, String grade) { super(name, rollNo); this.grade = grade; } void displayExamInfo() { displayBasicInfo(); System.out.println("Grade: " + grade); } }
-public class Main { public static void main(String[] args) { Exam exam = new Exam("Tushar Visave", 69, "A"); exam.displayExamInfo(); } }`,
-
-    "Experiment 5 - Part A": `interface Exam { double getPer(); }
-class Student implements Exam { String rollNo; String name;
- Student(String rollNo, String name) { this.rollNo = rollNo; this.name = name; }
- @Override public double getPer() { return 85.5; }
- public void display() { System.out.println("Roll No: " + rollNo); System.out.println("Name: " + name); System.out.println("Percentage: " + getPer() + "%"); } }
-class Result extends Student { String grade;
- Result(String rollNo, String name, String grade) { super(rollNo, name); this.grade = grade; }
- @Override public void display() { super.display(); System.out.println("Grade: " + grade); } }
-public class Main { public static void main(String[] args) { Result studentResult = new Result("101", "Tushar Visave", "A"); studentResult.display(); } }`,
-
-    "Experiment 5 - Part B": `interface Walkable { void walk(); }
-interface Swimmable { void swim(); }
-class Duck implements Walkable, Swimmable { public void walk() { System.out.println("The duck is walking."); } public void swim() { System.out.println("The duck is swimming."); } }
-public class Main { public static void main(String[] args) { Duck duck = new Duck(); duck.walk(); duck.swim(); } }`,
-
-    "Experiment 6": `package myPackage; public class MyClass { public void getNames(String s) { System.out.println(s); } }
-package P1; public class A { public void T1() { System.out.println("How are you"); } }
-package P2; public class B { public void T2() { System.out.println("HELLO Tushar "); } }
-import P1.A; import P2.B; public class Testing { public static void main(String[] args) { A a1=new A(); B b1=new B(); b1.T2(); a1.T1(); } }`,
-
-    "Experiment 7 - Part A": `class PrintNumber extends Thread { private int number; public PrintNumber(int number) { this.number = number; } public void run() { System.out.println(number); } }
-public class Main { public static void main(String[] args) { PrintNumber thread1 = new PrintNumber(1); PrintNumber thread2 = new PrintNumber(2); PrintNumber thread3 = new PrintNumber(3); PrintNumber thread4 = new PrintNumber(4); PrintNumber thread5 = new PrintNumber(5); thread1.start(); thread2.start(); thread3.start(); thread4.start(); thread5.start(); try { thread1.join(); thread2.join(); thread3.join(); thread4.join(); thread5.join(); } catch (InterruptedException e) { e.printStackTrace(); } } }`,
-
-    "Experiment 7 - Part B": `class Odd extends Thread { public void run() { for (int i = 1; i < 50; i += 2) { System.out.println("Odd = " + i); try { sleep(100); } catch (InterruptedException e) { e.printStackTrace(); } } } }
-class Even extends Thread { public void run() { for (int j = 2; j <= 50; j += 2) { System.out.println("Even = " + j); try { sleep(102); } catch (InterruptedException e) { e.printStackTrace(); } } } }
-public class OddEven { public static void main(String[] args) { new Odd().start(); new Even().start(); } }`,
-
-    "Experiment 8 - Part A": `import java.util.Scanner; public class Division { public static void main(String[] args) { Scanner scanner = new Scanner(System.in); System.out.print("Enter the first number: "); double num1 = scanner.nextDouble(); System.out.print("Enter the second number: "); double num2 = scanner.nextDouble(); try { double result = num1 / num2; if (result < 0.01) { throw new Exception("Result is less than 0.01!"); } System.out.println("The result of division is: " + result); } catch (ArithmeticException e) { System.out.println("Error: Cannot divide by zero."); } catch (Exception e) { System.out.println("Error: " + e.getMessage()); } scanner.close(); } }`,
-
-    "Experiment 8 - Part B": `import java.util.Scanner; public class AgeException { public static void main(String[] args) { Scanner scanner = new Scanner(System.in); System.out.print("Enter your age: "); int age = scanner.nextInt(); try { checkAge(age); System.out.println("Your age is: " + age); } catch (Exception e) { System.out.println("Error: " + e.getMessage()); } scanner.close(); } public static void checkAge(int age) throws Exception { if (age < 0) { throw new Exception("Age cannot be negative!"); } } }`,
-
-    "Experiment 9 - Part A": `import java.applet.*; import java.awt.*; public class HelloWorldApplet extends Applet { public void paint(Graphics g) { g.drawString("Hello World", 25, 50); } }`,
-
-    "Experiment 9 - Part B": `import java.applet.*; import java.awt.*; public class Simple_Applet extends Applet { public void init() { setBackground(Color.cyan); setForeground(Color.red); } public void paint(Graphics g) { g.drawString("A SIMPLE APPLET", 100, 200); } }`
+            FileReader fr = new FileReader("output.txt");
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            while ((line = br.readLine()) != null) {
+                System.out.println(line);
+            }
+            br.close();
+        } catch (IOException e) {
+            System.out.println("Error handling file: " + e.getMessage());
+        }
+    }
+}`
+    }
 };
 
-const buttonsDiv = document.getElementById('buttons');
-for (const [key, code] of Object.entries(experiments)) {
-    const btn = document.createElement('button');
-    btn.innerText = key;
-    btn.onclick = () => copyCode(code);
-    buttonsDiv.appendChild(btn);
-}
-
-function copyCode(code) {
-    const textarea = document.getElementById('hiddenTextarea');
-    textarea.style.display = 'block';
-    textarea.value = code;
-    textarea.select();
-    document.execCommand('copy');
-    textarea.style.display = 'none';
-    alert('Code copied to clipboard!');
-}
+window.onload = function() {
+    const buttonsDiv = document.getElementById("buttons");
+    for (let experiment in experiments) {
+        const btn = document.createElement("button");
+        btn.textContent = experiment;
+        btn.onclick = function() {
+            const textarea = document.getElementById("hiddenTextarea");
+            textarea.style.display = 'block';
+            textarea.value = experiments[experiment].code;
+            textarea.select();
+            document.execCommand('copy');
+            alert('Code copied to clipboard!');
+        };
+        buttonsDiv.appendChild(btn);
+    }
+};
 </script>
 
 </body>
