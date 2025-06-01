@@ -8,6 +8,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5225142257290868"
      crossorigin="anonymous"></script>
+     <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XCETK2KXRF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XCETK2KXRF');
+</script>
     <link rel="icon" href="images/logo.png" type="image/png">
     <link rel="icon" href="images/favicon.png" type="image/png">
 
@@ -68,15 +77,12 @@
             
 </section>
 <script>
-    // Draw dotted cut lines between grid cells
     function drawCutLines(page, cols, rows) {
         const { width, height } = page.getSize();
         const colWidth = width / cols;
         const rowHeight = height / rows;
+        const dash = [3, 3];
 
-        const dash = [3, 3]; // dash length and gap length
-
-        // Vertical dotted lines
         for (let c = 1; c < cols; c++) {
             page.drawLine({
                 start: { x: c * colWidth, y: 0 },
@@ -87,7 +93,6 @@
             });
         }
 
-        // Horizontal dotted lines
         for (let r = 1; r < rows; r++) {
             page.drawLine({
                 start: { x: 0, y: r * rowHeight },
@@ -122,15 +127,13 @@
                     const perSide = cols * rows;
 
                     for (let i = 0; i < pageCount; i += perSide * 2) {
-                        const frontPage = newPdfDoc.addPage([595, 842]); // A4 size
-                        const backPage = newPdfDoc.addPage([595, 842]); // A4 size
+                        const frontPage = newPdfDoc.addPage([595, 842]);
+                        const backPage = newPdfDoc.addPage([595, 842]);
                         const { width, height } = frontPage.getSize();
 
                         for (let j = 0; j < perSide; j++) {
                             const frontIndex = i + j * 2;
                             const backIndex = i + j * 2 + 1;
-
-                            // Calculate grid position
                             const col = j % cols;
                             const row = Math.floor(j / cols);
 
@@ -152,7 +155,6 @@
                                 const copiedPage = copiedPages[0];
                                 const embeddedPage = await newPdfDoc.embedPage(copiedPage);
 
-                                // Mirrored X for back page
                                 backPage.drawPage(embeddedPage, {
                                     x: (cols - 1 - col) * (width / cols),
                                     y: height - (row + 1) * (height / rows),
@@ -162,7 +164,6 @@
                             }
                         }
 
-                        // Add dotted cut lines
                         drawCutLines(frontPage, cols, rows);
                         drawCutLines(backPage, cols, rows);
                     }
@@ -177,6 +178,14 @@
                     link.click();
                     document.body.removeChild(link);
                     URL.revokeObjectURL(url);
+
+                    // ✅ Google Analytics tracking
+                    gtag('event', 'pdf_generated', {
+                        event_category: 'PDF',
+                        event_label: '9-in-1',
+                        value: 1
+                    });
+
                 } catch (err) {
                     console.error("Error processing PDF:", err);
                     alert("Failed to process PDF. Please check the console for details.");
@@ -215,15 +224,13 @@
                     const pageCount = pdfDoc.getPageCount();
 
                     for (let i = 0; i < pageCount; i += perSide * 2) {
-                        const frontPage = newPdfDoc.addPage([595, 842]); // A4 size
-                        const backPage = newPdfDoc.addPage([595, 842]); // A4 size
+                        const frontPage = newPdfDoc.addPage([595, 842]);
+                        const backPage = newPdfDoc.addPage([595, 842]);
                         const { width, height } = frontPage.getSize();
 
                         for (let j = 0; j < perSide; j++) {
                             const frontIndex = i + j * 2;
                             const backIndex = i + j * 2 + 1;
-
-                            // Calculate grid position
                             const col = j % cols;
                             const row = Math.floor(j / cols);
 
@@ -245,7 +252,6 @@
                                 const copiedPage = copiedPages[0];
                                 const embeddedPage = await newPdfDoc.embedPage(copiedPage);
 
-                                // Mirrored X for back
                                 backPage.drawPage(embeddedPage, {
                                     x: (cols - 1 - col) * (width / cols),
                                     y: height - (row + 1) * (height / rows),
@@ -255,7 +261,6 @@
                             }
                         }
 
-                        // Add dotted cut lines
                         drawCutLines(frontPage, cols, rows);
                         drawCutLines(backPage, cols, rows);
                     }
@@ -270,6 +275,14 @@
                     link.click();
                     document.body.removeChild(link);
                     URL.revokeObjectURL(url);
+
+                    // ✅ Google Analytics tracking
+                    gtag('event', 'pdf_generated', {
+                        event_category: 'PDF',
+                        event_label: `Custom_${cols}x${rows}`,
+                        value: 1
+                    });
+
                 } catch (err) {
                     console.error("Error processing PDF:", err);
                     alert("Failed to process PDF. Please check the console for details.");
