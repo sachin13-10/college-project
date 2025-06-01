@@ -33,7 +33,7 @@
 </head>
 
 <body>
-    <body>
+    <section class="header">
         <section class="header">
             
             <div id="navbar"></div>
@@ -53,6 +53,11 @@
                         <i class="fa fa-file-pdf-o"></i> Generate Double-Sided PDF
                     </button>
                 </div>
+                <div class="mt-3">
+                <button class="btn btn-secondary" onclick="customLayoutPDF()">
+                    <i class="fa fa-th-large"></i> Generate Custom Layout PDF
+                </button>
+            </div>
             </div>
             
             <!-- Bootstrap CSS -->
@@ -62,85 +67,221 @@
             
             
 </section>
-    <script>
-        async function processPDF() {
-            try {
-                const fileInput = document.getElementById("pdfInput");
-                if (!fileInput.files.length) {
-                    alert("Please upload a PDF file.");
-                    return;
-                }
-                const file = fileInput.files[0];
-                const reader = new FileReader();
+<script>
+    // Draw dotted cut lines between grid cells
+    function drawCutLines(page, cols, rows) {
+        const { width, height } = page.getSize();
+        const colWidth = width / cols;
+        const rowHeight = height / rows;
 
-                reader.readAsArrayBuffer(file);
-                reader.onload = async function () {
-                    try {
-                        const arrayBuffer = reader.result;
-                        const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
-                        const newPdfDoc = await PDFLib.PDFDocument.create();
-                        const pageCount = pdfDoc.getPageCount();
+        const dash = [3, 3]; // dash length and gap length
 
-                        console.log(`Original PDF has ${pageCount} pages.`);
+        // Vertical dotted lines
+        for (let c = 1; c < cols; c++) {
+            page.drawLine({
+                start: { x: c * colWidth, y: 0 },
+                end: { x: c * colWidth, y: height },
+                thickness: 0.5,
+                color: PDFLib.rgb(0, 0, 0),
+                dashArray: dash,
+            });
+        }
 
-                        for (let i = 0; i < pageCount; i += 18) {
-                            const frontPage = newPdfDoc.addPage([595, 842]); // A4 size
-                            const backPage = newPdfDoc.addPage([595, 842]); // A4 size
-                            const { width, height } = frontPage.getSize();
+        // Horizontal dotted lines
+        for (let r = 1; r < rows; r++) {
+            page.drawLine({
+                start: { x: 0, y: r * rowHeight },
+                end: { x: width, y: r * rowHeight },
+                thickness: 0.5,
+                color: PDFLib.rgb(0, 0, 0),
+                dashArray: dash,
+            });
+        }
+    }
 
-                            for (let j = 0; j < 9; j++) {
-                                const frontIndex = i + j * 2;
-                                const backIndex = i + j * 2 + 1;
+    async function processPDF() {
+        try {
+            const fileInput = document.getElementById("pdfInput");
+            if (!fileInput.files.length) {
+                alert("Please upload a PDF file.");
+                return;
+            }
+            const file = fileInput.files[0];
+            const reader = new FileReader();
 
-                                if (frontIndex < pageCount) {
-                                    const copiedPages = await pdfDoc.copyPages(pdfDoc, [frontIndex]);
-                                    const copiedPage = copiedPages[0];
-                                    const embeddedPage = await newPdfDoc.embedPage(copiedPage);
+            reader.readAsArrayBuffer(file);
+            reader.onload = async function () {
+                try {
+                    const arrayBuffer = reader.result;
+                    const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+                    const newPdfDoc = await PDFLib.PDFDocument.create();
+                    const pageCount = pdfDoc.getPageCount();
 
-                                    frontPage.drawPage(embeddedPage, {
-                                        x: (j % 3) * (width / 3),
-                                        y: height - Math.floor(j / 3) * (height / 3) - height / 3,
-                                        width: width / 3,
-                                        height: height / 3
-                                    });
-                                }
+                    const cols = 3;
+                    const rows = 3;
+                    const perSide = cols * rows;
 
-                                if (backIndex < pageCount) {
-                                    const copiedPages = await pdfDoc.copyPages(pdfDoc, [backIndex]);
-                                    const copiedPage = copiedPages[0];
-                                    const embeddedPage = await newPdfDoc.embedPage(copiedPage);
+                    for (let i = 0; i < pageCount; i += perSide * 2) {
+                        const frontPage = newPdfDoc.addPage([595, 842]); // A4 size
+                        const backPage = newPdfDoc.addPage([595, 842]); // A4 size
+                        const { width, height } = frontPage.getSize();
 
-                                    // Place in mirrored order for back alignment
-                                    backPage.drawPage(embeddedPage, {
-                                        x: (2 - (j % 3)) * (width / 3),  // Reverse X position
-                                        y: height - Math.floor(j / 3) * (height / 3) - height / 3,
-                                        width: width / 3,
-                                        height: height / 3
-                                    });
-                                }
+                        for (let j = 0; j < perSide; j++) {
+                            const frontIndex = i + j * 2;
+                            const backIndex = i + j * 2 + 1;
+
+                            // Calculate grid position
+                            const col = j % cols;
+                            const row = Math.floor(j / cols);
+
+                            if (frontIndex < pageCount) {
+                                const copiedPages = await pdfDoc.copyPages(pdfDoc, [frontIndex]);
+                                const copiedPage = copiedPages[0];
+                                const embeddedPage = await newPdfDoc.embedPage(copiedPage);
+
+                                frontPage.drawPage(embeddedPage, {
+                                    x: col * (width / cols),
+                                    y: height - (row + 1) * (height / rows),
+                                    width: width / cols,
+                                    height: height / rows
+                                });
+                            }
+
+                            if (backIndex < pageCount) {
+                                const copiedPages = await pdfDoc.copyPages(pdfDoc, [backIndex]);
+                                const copiedPage = copiedPages[0];
+                                const embeddedPage = await newPdfDoc.embedPage(copiedPage);
+
+                                // Mirrored X for back page
+                                backPage.drawPage(embeddedPage, {
+                                    x: (cols - 1 - col) * (width / cols),
+                                    y: height - (row + 1) * (height / rows),
+                                    width: width / cols,
+                                    height: height / rows
+                                });
                             }
                         }
 
-                        const pdfBytes = await newPdfDoc.save();
-                        const blob = new Blob([pdfBytes], { type: "application/pdf" });
-                        const link = document.createElement("a");
-                        link.href = URL.createObjectURL(blob);
-                        link.download = "9-in-1-Double-Sided-PDF.pdf";
-                        document.body.appendChild(link);
-                        link.click();
-                        document.body.removeChild(link);
-                        console.log("PDF generated and downloaded successfully.");
-                    } catch (err) {
-                        console.error("Error processing PDF:", err);
-                        alert("Failed to process PDF. Please check the console for details.");
+                        // Add dotted cut lines
+                        drawCutLines(frontPage, cols, rows);
+                        drawCutLines(backPage, cols, rows);
                     }
-                };
-            } catch (err) {
-                console.error("Error loading file:", err);
-                alert("Failed to load file. Try again.");
-            }
+
+                    const pdfBytes = await newPdfDoc.save();
+                    const blob = new Blob([pdfBytes], { type: "application/pdf" });
+                    const link = document.createElement("a");
+                    const url = URL.createObjectURL(blob);
+                    link.href = url;
+                    link.download = "9-in-1-Double-Sided-PDF.pdf";
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+                } catch (err) {
+                    console.error("Error processing PDF:", err);
+                    alert("Failed to process PDF. Please check the console for details.");
+                }
+            };
+        } catch (err) {
+            console.error("Error loading file:", err);
+            alert("Failed to load file. Try again.");
         }
-    </script>
+    }
+
+    async function customLayoutPDF() {
+        try {
+            const fileInput = document.getElementById("pdfInput");
+            if (!fileInput.files.length) {
+                alert("Please upload a PDF file.");
+                return;
+            }
+            let cols = parseInt(prompt("Enter number of columns (e.g., 3):", "3"));
+            let rows = parseInt(prompt("Enter number of rows (e.g., 3):", "3"));
+            if (isNaN(cols) || isNaN(rows) || cols < 1 || rows < 1) {
+                alert("Invalid input for columns or rows.");
+                return;
+            }
+            const perSide = cols * rows;
+
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            reader.readAsArrayBuffer(file);
+            reader.onload = async function () {
+                try {
+                    const arrayBuffer = reader.result;
+                    const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+                    const newPdfDoc = await PDFLib.PDFDocument.create();
+                    const pageCount = pdfDoc.getPageCount();
+
+                    for (let i = 0; i < pageCount; i += perSide * 2) {
+                        const frontPage = newPdfDoc.addPage([595, 842]); // A4 size
+                        const backPage = newPdfDoc.addPage([595, 842]); // A4 size
+                        const { width, height } = frontPage.getSize();
+
+                        for (let j = 0; j < perSide; j++) {
+                            const frontIndex = i + j * 2;
+                            const backIndex = i + j * 2 + 1;
+
+                            // Calculate grid position
+                            const col = j % cols;
+                            const row = Math.floor(j / cols);
+
+                            if (frontIndex < pageCount) {
+                                const copiedPages = await pdfDoc.copyPages(pdfDoc, [frontIndex]);
+                                const copiedPage = copiedPages[0];
+                                const embeddedPage = await newPdfDoc.embedPage(copiedPage);
+
+                                frontPage.drawPage(embeddedPage, {
+                                    x: col * (width / cols),
+                                    y: height - (row + 1) * (height / rows),
+                                    width: width / cols,
+                                    height: height / rows
+                                });
+                            }
+
+                            if (backIndex < pageCount) {
+                                const copiedPages = await pdfDoc.copyPages(pdfDoc, [backIndex]);
+                                const copiedPage = copiedPages[0];
+                                const embeddedPage = await newPdfDoc.embedPage(copiedPage);
+
+                                // Mirrored X for back
+                                backPage.drawPage(embeddedPage, {
+                                    x: (cols - 1 - col) * (width / cols),
+                                    y: height - (row + 1) * (height / rows),
+                                    width: width / cols,
+                                    height: height / rows
+                                });
+                            }
+                        }
+
+                        // Add dotted cut lines
+                        drawCutLines(frontPage, cols, rows);
+                        drawCutLines(backPage, cols, rows);
+                    }
+
+                    const pdfBytes = await newPdfDoc.save();
+                    const blob = new Blob([pdfBytes], { type: "application/pdf" });
+                    const link = document.createElement("a");
+                    const url = URL.createObjectURL(blob);
+                    link.href = url;
+                    link.download = `${cols}x${rows}-Double-Sided-PDF.pdf`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+                } catch (err) {
+                    console.error("Error processing PDF:", err);
+                    alert("Failed to process PDF. Please check the console for details.");
+                }
+            };
+        } catch (err) {
+            console.error("Error loading file:", err);
+            alert("Failed to load file. Try again.");
+        }
+    }
+</script>
+
 
     
 
